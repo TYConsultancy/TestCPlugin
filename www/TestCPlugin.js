@@ -1,5 +1,7 @@
-var exec = require('cordova/exec');
+/*global cordova, module*/
 
-exports.coolMethod = function(arg0, success, error) {
-    exec(success, error, "TestCPlugin", "coolMethod", [arg0]);
+module.exports = {
+    greet: function (name, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "TestCPlugin", "greet", [name]);
+    }
 };
