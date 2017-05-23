@@ -86,6 +86,7 @@ public class TestCPlugin extends CordovaPlugin {
         // READ_REQUEST_CODE. If the request code seen here doesn't match, it's the
         // response to some other intent, and the code below shouldn't run at all.
         //StorageManager imm = (StorageManager)getSystemService(Context.STORAGE_SERVICE);
+        out.println("*********************************************am i called****"+resultCode+"***req***"+requestCode);
         if (resultCode == Activity.RESULT_OK) {
             // The document selected by the user won't be returned in the intent.
             // Instead, a URI to that document will be contained in the return intent
