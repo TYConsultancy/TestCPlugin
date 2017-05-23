@@ -75,7 +75,7 @@ public class TestCPlugin extends CordovaPlugin {
     public void performFileSearch() {
 
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        this.cordova.getActivity().startActivityForResult(intent, PICK_FROM_FILE);
+        this.cordova.startActivityForResult(this,intent, PICK_FROM_FILE);
 
     }
     //@Override
@@ -154,7 +154,7 @@ public class TestCPlugin extends CordovaPlugin {
         List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
         boolean isIntentSafe = activities.size() > 0;
 
-        if (isIntentSafe) this.cordova.getActivity().startActivityForResult(intent, CROP_FROM_FILE);
+        if (isIntentSafe) this.cordova.startActivityForResult(this,intent, CROP_FROM_FILE);
 
 
 
