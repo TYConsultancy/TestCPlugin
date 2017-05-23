@@ -46,7 +46,7 @@ public class TestCPlugin extends CordovaPlugin {
     private Uri uri = null;
     private Bitmap bitmap = null;
     CallbackContext callbackContext = null;
-  @Override
+    @Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 
         if (action.equals("greet")) {
@@ -66,7 +66,7 @@ public class TestCPlugin extends CordovaPlugin {
             return false;
 
         }
-}
+    }
     public void performFileSearch() {
 
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -122,7 +122,7 @@ public class TestCPlugin extends CordovaPlugin {
                         }else{
                             //callbackContext.error();
                             out.println("***********************************************Looks like image not saved****");
-                           // Toast.makeText(this.getApplicationContext(),"Looks like image not saved",Toast.LENGTH_LONG).show();
+                            // Toast.makeText(this.getApplicationContext(),"Looks like image not saved",Toast.LENGTH_LONG).show();
                         }
                     break;
             }
@@ -188,11 +188,13 @@ public class TestCPlugin extends CordovaPlugin {
                 performFileSearch();
             }*/
             boolean saveAlbumPermission = PermissionHelper.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if(!saveAlbumPermission){
+            if(!saveAlbumPermission){
                 PermissionHelper.requestPermission(this, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE);
             }else{
+                performFileSearch();
+            }
+        }else{
             performFileSearch();
-        }
         }
     }
 
