@@ -154,7 +154,7 @@ public class TestCPlugin extends CordovaPlugin {
         List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
         boolean isIntentSafe = activities.size() > 0;
 
-        if (isIntentSafe) this.cordova.startActivityForResult((CordovaPlugin)this, intent, CROP_FROM_FILE);
+        if (isIntentSafe) this.cordova.getActivity().startActivityForResult(intent, CROP_FROM_FILE);
 
 
 
