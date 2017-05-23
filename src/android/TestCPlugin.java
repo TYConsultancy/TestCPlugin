@@ -58,7 +58,12 @@ public class TestCPlugin extends CordovaPlugin {
             cordova.setActivityResultCallback(this);
             //callbackContext.success(message);
             this.callbackContext = callbackContext;
-            checkPermission();
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    checkPermission();
+                }
+            });
+
             return true;
 
         } else {
