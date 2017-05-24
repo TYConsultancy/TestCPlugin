@@ -86,7 +86,7 @@ public class TestCPlugin extends CordovaPlugin {
     }
     public void performFileSearch2() {
         Intent intent 	 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        this.cordova.startActivityForResult(intent, PICK_FROM_CAMERA);
+        this.cordova.startActivityForResult(this,intent, PICK_FROM_CAMERA);
 
     }
     //@Override
