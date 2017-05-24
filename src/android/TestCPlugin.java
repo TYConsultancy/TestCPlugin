@@ -33,7 +33,8 @@ public class TestCPlugin extends CordovaPlugin {
     private static final String TEMP_PHOTO_FILE = "temporary_holder.jpg";
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 0;
     private final int PICK_FROM_FILE = 1;
-    private final int CROP_FROM_FILE = 2;
+    private final int PICK_FROM_CAMERA = 2;
+    private final int CROP_FROM_FILE = 3;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
     protected final static String[] permissions = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE };
@@ -48,19 +49,24 @@ public class TestCPlugin extends CordovaPlugin {
     CallbackContext callbackContext = null;
     @Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
+        cordova.setActivityResultCallback(this);
+        this.callbackContext = callbackContext;
 
-        if (action.equals("greet")) {
 
-            String name = data.getString(0);
+            //String name = data.getString(0);
             //String message = "Hello, " + name;
 
 
-            cordova.setActivityResultCallback(this);
+
             //callbackContext.success(message);
-            this.callbackContext = callbackContext;
+
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    checkPermission();
+                    if (action.equals("gallery")) {
+                        checkPermission(PICK_FROM_FILE);
+                    }else {
+                        checkPermission(PICK_FROM_CAMERA);
+                    }
                 }
             });
 
@@ -76,6 +82,11 @@ public class TestCPlugin extends CordovaPlugin {
 
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         this.cordova.startActivityForResult(this,intent, PICK_FROM_FILE);
+
+    }
+    public void performFileSearch2() {
+        Intent intent 	 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, PICK_FROM_CAMERA);
 
     }
     //@Override
@@ -185,7 +196,7 @@ public class TestCPlugin extends CordovaPlugin {
         String status = Environment.getExternalStorageState();
         return (status.equals(Environment.MEDIA_MOUNTED));
     }
-    public void checkPermission() {
+    public void checkPermission(int intVal) {
         int currentAPIVersion = Build.VERSION.SDK_INT;
         if (currentAPIVersion >= Build.VERSION_CODES.M) {
            /* if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -197,10 +208,16 @@ public class TestCPlugin extends CordovaPlugin {
             if(!saveAlbumPermission){
                 PermissionHelper.requestPermission(this, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE);
             }else{
-                performFileSearch();
+                if(intVal==PICK_FROM_FILE)
+                    performFileSearch();
+                else
+                    performFileSearch2();
             }
         }else{
-            performFileSearch();
+            if(intVal==PICK_FROM_FILE)
+                performFileSearch();
+            else
+                performFileSearch2();
         }
     }
 
