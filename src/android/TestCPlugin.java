@@ -56,22 +56,27 @@ public class TestCPlugin extends CordovaPlugin {
             //String name = data.getString(0);
             //String message = "Hello, " + name;
 
-
+        if (action.equals("gallery")) {
 
             //callbackContext.success(message);
 
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    if (action.equals("gallery")) {
+
                         checkPermission(PICK_FROM_FILE);
-                    }else {
-                        checkPermission(PICK_FROM_CAMERA);
-                    }
+
                 }
             });
 
             return true;
-
+        }else {
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    checkPermission(PICK_FROM_CAMERA);
+                }
+            });
+            return true;
+        }
         // else {
 
          //   return false;
