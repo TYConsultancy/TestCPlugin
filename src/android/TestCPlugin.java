@@ -72,11 +72,11 @@ public class TestCPlugin extends CordovaPlugin {
 
             return true;
 
-        } else {
+        // else {
 
-            return false;
+         //   return false;
 
-        }
+       // }
     }
     public void performFileSearch() {
 
