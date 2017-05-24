@@ -86,7 +86,7 @@ public class TestCPlugin extends CordovaPlugin {
     }
     public void performFileSearch2() {
         Intent intent 	 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, PICK_FROM_CAMERA);
+        this.cordova.startActivityForResult(intent, PICK_FROM_CAMERA);
 
     }
     //@Override
@@ -110,7 +110,9 @@ public class TestCPlugin extends CordovaPlugin {
                     //Allow cropping for the selected image.
                     doCrop();
                     break;
-
+                case PICK_FROM_CAMERA:
+                    uri = resultData.getData();
+                    doCrop();
                 case CROP_FROM_FILE:
 
                     Bundle extras = resultData.getExtras();
