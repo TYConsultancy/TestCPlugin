@@ -148,7 +148,7 @@ public class TestCPlugin extends CordovaPlugin {
         intent.putExtra("aspectY", 1);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
 
-        intent.putExtra("return-data", true);
+        //intent.putExtra("return-data", true);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 
         PackageManager packageManager = this.cordova.getActivity().getPackageManager();
