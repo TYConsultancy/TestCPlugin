@@ -27,7 +27,7 @@ import java.util.List;
 import static java.lang.System.out;
 
 /**
- * This class echoes a string called from JavaScript.
+ * This class echoes a string called from JavaScript for picking pictures from gallery and clicking pictures via camera and cropping them
  */
 public class TestCPlugin extends CordovaPlugin {
     private static final String TEMP_PHOTO_FILE = "temporary_holder.jpg";
